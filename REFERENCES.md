@@ -1,0 +1,21 @@
+# Lista de Referências
+
+- [(Code) Implementação do Filtro de Wiener](https://www.mathworks.com/help/images/deblurring-images-using-a-wiener-filter.html).
+- [(Paper) Aprimoramento de imagem usando processamento do Histograma](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.375.4852&rep=rep1&type=pdf)
+- [(Paper) A definição e formula de Contrast to Noise](https://onlinelibrary.wiley.com/doi/epdf/10.1002/sca.21179).
+- [(Paper) Evolução do CNR, gCNR](https://www.duo.uio.no/bitstream/handle/10852/81327/08918059.pdf?sequence=2)
+- [(Wiki) Contrast-to-noise ratio](https://en.wikipedia.org/wiki/Contrast-to-noise_ratio)
+  - Não será usado o contrast to noise porque ele precisa de duas regiões para calcular o contraste.
+- [(Code) Código para o Signal-to-noise](https://coderedirect.com/questions/397638/calculate-signal-to-noise-ratio-in-python-scipy-version-1-1).
+- [(Code) Lib para poder usar o Absolute Mean Brightness Error](https://pypi.org/project/image-enhancement/)
+- [(Code) Aprimoramento de imagem, alguns códigos que podem ser uteis](https://github.com/AndyHuang1995/Image-Contrast-Enhancement)
+- [(Code) Como calcular o RMS Contrast](https://stackoverflow.com/questions/58821130/how-to-calculate-the-contrast-of-an-image)
+- [(Paper) O paper que me fez descobrir o que é o AMBE e fala tbm sobre Weber's Law](https://www.researchgate.net/publication/319481353_Image_Contrast_Enhancement_Using_Modified_Webers_Law)
+- [(Wiki) Detalhes sobre Contraste](https://en.wikipedia.org/wiki/Contrast_(vision)#RMS_contrast)
+- [(Code) Histograma com o Scikit Image](https://scikit-image.org/docs/dev/auto_examples/color_exposure/plot_equalize.html)
+- [(Paper) A referência para dizer que processamento de imagem usando Wiener é usado na área médica.](https://www.intechopen.com/chapters/58070)
+- [(Code) Referência para o filtro de Wiener na lib do SciPy](https://scipy.github.io/devdocs/tutorial/signal.html#wiener-filter)
+- [(Code) O código que roda o filtro de Wiener](https://github.com/scipy/scipy/blob/d909201733b32c7ed916a9e4b64bb7d91d72ae0f/scipy/signal/_signaltools.py#L1540)
+- [(Paper) A referência do artigo que podemos usar para citar a biblioteca SciPy](https://www.nature.com/articles/s41592-019-0686-2#citeas)
+- [(Paper) Um comparativo entre técnicas de histograma](https://arxiv.org/ftp/arxiv/papers/1311/1311.4033.pdf)
+- [(Paper) Um papel para descrever os usos do Filtro Wiener na área médica](https://www.sciencedirect.com/science/article/abs/pii/S0730725X06002852?via%3Dihub)

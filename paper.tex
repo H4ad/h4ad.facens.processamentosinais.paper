@@ -1,0 +1,102 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{breaklinks=true}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Aprimoramento de Imagem}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Vinícius Lourenço Claro Cardoso}
+\IEEEauthorblockA{\textit{Estudante de Enganharia de Computação} \\
+\textit{FACENS}\\
+Sorocaba, São Paulo \\
+vinicius.cardoso7252@gmail.com}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Gal Bronstein}
+\IEEEauthorblockA{\textit{Estudante de Enganharia de Computação} \\
+\textit{FACENS}\\
+Sorocaba, São Paulo \\
+gal.alaiti@gmail.com}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Henrique Rodrigues}
+\IEEEauthorblockA{\textit{Estudante de Enganharia de Computação} \\
+\textit{FACENS}\\
+Sorocaba, São Paulo \\
+henrique.rodrigues07@hotmail.com}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Lucas Capucho de Araujo}
+\IEEEauthorblockA{\textit{Estudante de Enganharia de Computação} \\
+\textit{FACENS}\\
+Sorocaba, São Paulo \\
+lucascapucho@hotmail.com}
+\and
+\IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+}
+
+\maketitle
+
+\begin{abstract}
+O objetivo é apresentar a análise entre dois métodos de processamento de imagens para aumentar o contraste: Wiener Filter e Histogram Equalization.
+Após o processamento, o Erro de Brilho Médio Absoluto (AMBE) é usado para performar uma análise a cerca da eficiência de cada método.
+\end{abstract}
+
+\begin{IEEEkeywords}
+signal processing, wiener filter, histogram equalization, image, improvement, mri
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+Hoje em dia, técnicas de processamento de imagem são amplamente utilizadas na área médica, principalmente ao se realizar uma Resonância Magnética \cite{b1}, com o intuito de aumentar o contraste das imagens tiradas durante o procedimento médico.
+
+Um dos modos de se aumentar o contraste de uma imagem se dá na utilização do filtro de Wiener \cite{b2}, que realiza um deblurring de imagens com ruídos.
+
+Para performar o filtro, foi utilizado a implementação em Python usando a biblioteca SciPy \cite{b3}, que executa a seguinte formula \cite{b4} :
+
+\begin{equation}
+y=\left\{ \begin{array}{cc} \frac{\sigma^{2}}{\sigma_{x}^{2}}m_{x}+\left(1-\frac{\sigma^{2}}{\sigma_{x}^{2}}\right)x & \sigma_{x}^{2}\geq\sigma^{2},\\ m_{x} & \sigma_{x}^{2}<\sigma^{2},\end{array}\right.
+\end{equation}
+
+Além disso, também é possível utilizar a Equalização de Histograma (HE) que é um método popular para o aprimoramento de contraste de imagem \cite{b5} \cite{b6} \cite{b7}.
+
+O histograma, quando performado em uma imagem em tons de cinza, é a representação da frequência de todos os tons de cinza dessa imagem \cite{b8}.
+
+Send assim, a equalização de histograma será performada usando uma biblioteca em Python chamada Scikit-Image \cite{b9}.
+
+E por fim, para a análise, o Erro de Brilho Médio Absoluto (AMBE) que é popular para esse tipo de análise \cite{10}, será utilizado para medir a eficácia de ambos os métodos.
+
+O AMBE é definido como a diferença absoluta entre uma entrada e uma saída, e baixos valores implicam em uma preservação maior do brilho. A sua formula é descrita como \cite{11}:
+
+\begin{equation}
+AMBE=|E(X) – E(Y)|     
+\end{equation}
+
+\begin{thebibliography}{00}
+\bibitem{b1} Hanafy M. Ali (March 14th 2018). MRI Medical Image Denoising by Fundamental Filters, High-Resolution Neuroimaging - Basic Physical Principles and Clinical Applications, Ahmet Mesrur Halefoğlu, IntechOpen, DOI: 10.5772/intechopen.72427. Disponível em: https://www.intechopen.com/chapters/58070
+\bibitem{b2} Martin-Fernandez, M., Alberola-Lopez, C., Ruiz-Alzola, J., \& Westin, C. F. (2007). Sequential anisotropic Wiener filtering applied to 3D MRI data. Magnetic resonance imaging, 25(2), 278-292.
+\bibitem{b3} Virtanen, P., Gommers, R., Oliphant, T.E. et al. SciPy 1.0: fundamental algorithms for scientific computing in Python. Nat Methods 17, 261–272 (2020). \url{https://doi.org/10.1038/s41592-019-0686-2}
+\bibitem{b4} Lim, Jae S., Two-Dimensional Signal and Image Processing, Englewood Cliffs, NJ, Prentice Hall, 1990, p. 548.
+\bibitem{b5} Scott E Umbaugh, Computer Vision and Image Processing, Prentice Hall: New Jersey 1998, pp. 209.
+\bibitem{b6} Patel, O., Maravi, Y. P., \& Sharma, S. (2013). A comparative study of histogram equalization based image enhancement techniques for brightness preservation and contrast enhancement. arXiv preprint arXiv:1311.4033.
+\bibitem{b7} Komal, Vij \& Yaduvir, Singh. (2011). Enhancement of Images using Histogram Processing Techniques. International Journal of Computer Technology and Applications. 02.
+\bibitem{b8} Gonzalez RC and Woods RE, “Digital Image Processing” Pearson Education Pvt. Ltd, Third
+Edition pp. 142-143, Delhi, (2003). Acessado em: 23/11/2021. Disponível em: \url{http://sdeuoc.ac.in/sites/default/files/sde_videos/Digital%20Image%20Processing%203rd%20ed.%20-%20R.%20Gonzalez%2C%20R.%20Woods-ilovepdf-compressed.pdf}
+\bibitem{b9} Stéfan van der Walt, Johannes L. Schönberger, Juan Nunez-Iglesias, François Boulogne, Joshua D. Warner, Neil Yager, Emmanuelle Gouillart, Tony Yu, and the scikit-image contributors. scikit-image: Image processing in Python. PeerJ 2:e453 (2014) \url{https://doi.org/10.7717/peerj.453}
+\bibitem{10} Chen, S. D. (2012). A new image quality measure for assessment of histogram equalization-based contrast enhancement techniques. Digital Signal Processing, 22(4), 640-647.
+\bibitem{11} Gupta, B., \& Tiwari, M. (2016). Minimum mean brightness error contrast enhancement of color images using adaptive gamma correction with color preserving framework. Optik, 127(4), 1671-1676.
+\end{thebibliography}
+\vspace{12pt}
+\end{document}
