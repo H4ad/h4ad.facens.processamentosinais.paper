@@ -75,7 +75,7 @@ Por fim, para a análise de eficácia será utilizado o Erro de Brilho Médio Ab
 
 \section{Fundamentação}
 
-Para performar o filtro de Wiener, será utilizado a implementação em Python usando a biblioteca SciPy \cite{b4}, que foi implementada seguindo a formula abaixo \cite{b5} :
+Para performar o filtro de Wiener, será utilizado a implementação em Python usando a biblioteca SciPy \cite{b4}, que foi implementada seguindo a formula abaixo \cite{b5}:
 
 \begin{equation}
 y=\left\{ \begin{array}{cc} \frac{\sigma^{2}}{\sigma_{x}^{2}}m_{x}+\left(1-\frac{\sigma^{2}}{\sigma_{x}^{2}}\right)x & \sigma_{x}^{2}\geq\sigma^{2},\\ m_{x} & \sigma_{x}^{2}<\sigma^{2},\end{array}\right.
@@ -107,7 +107,7 @@ No qual L é o nível de intensidade de tons de cinza e M x N é o número de pi
 cdf_{x}(i)=\sum _{j=0}^{i}p_{x}(x=j)
 \end{equation}
 
-Por fim, para a análise, temos o AMBE que pode ser definido como a diferença absoluta entre uma entrada e uma saída, e baixos valores implicam em uma preservação maior do brilho. 
+Para a análise, temos o AMBE que pode ser definido como a diferença absoluta entre uma entrada e uma saída, e baixos valores implicam em uma preservação maior do brilho. 
 
 A sua formula é descrita como \cite{b12}:
 
@@ -115,9 +115,41 @@ A sua formula é descrita como \cite{b12}:
 AMBE = |E(X) - E(Y)|     
 \end{equation}
 
+E por fim, para ter um cenário onde é possível reproduzir com uma maior precisão, será aplicado um ruído gaussiano, que se trata de um modelo de ruído que geralmente distorce os tons de cinza em uma imagem digital \cite{b14}.
+
+O ruído gaussiano pode ser dado por:
+
+\begin{equation}
+p_{G}(z)={\frac {1}{\sigma {\sqrt {2\pi }}}}e^{-{\frac {(z-\mu )^{2}}{2\sigma ^{2}}}}
+\end{equation}
+
+Onde:
+
+\begin{itemize}
+\item z é a intensidade.
+\item \({\mu}\) é o valor médio de z.
+\item \({\sigma}\) é o desvio padrão.
+\item \({\sigma^2}\)  representa a variância.
+\end{itemize}
+
+Contudo, para esse experimento, foi utilizado a implementação do SciPy \cite{b4}, no qual implementa o ruído gaussiano da seguinte forma \cite{b14}:
+
+\begin{equation}
+w(n) = e^{ -\frac{1}{2}\left(\frac{n}{\sigma}\right)^2 }
+\end{equation}
+
+Onde:
+
+\begin{itemize}
+\item n é o número de pontos.
+\item \({\sigma}\) é o desvio padrão.
+\end{itemize}
+
 \section{Desenvolvimento}
 
-Foi utilizado um banco de imagens MRI qualquer para obter uma imagem de cérebro para ser aprimorada.
+Foi utilizado um banco de imagens MRI qualquer para obter uma imagem de cérebro para ser aprimorada, ela é representada na Figura 1 como "Imagem Original".
+
+E com a imagem original, foi criado a imagem com ruido que utiliza do ruído gaussiano com um sigma no valor de 100. 
 
 \begin{figure}[H]
     \centering
@@ -152,6 +184,8 @@ E quanto as métricas de eficácia, é possível observar na tabela a seguir:
 \end{tabular}
 \end{table}
 
+\section{Resultados}
+
 \begin{thebibliography}{00}
 \bibitem{b1} Hanafy M. Ali (March 14th 2018). MRI Medical Image Denoising by Fundamental Filters, High-Resolution Neuroimaging - Basic Physical Principles and Clinical Applications, Ahmet Mesrur Halefoğlu, IntechOpen, DOI: 10.5772/intechopen.72427. Disponível em: https://www.intechopen.com/chapters/58070
 \bibitem{b2} Ecomax, Diagnósticos por imagem - Tire suas dúvidas sobre o uso de constrate em exames de imagem. Disponível em: \url{https://ecomax-cdi.com.br/blog/tire-suas-duvidas-sobre-o-uso-de-contraste-em-exames-de-imagem/}
@@ -167,6 +201,7 @@ E quanto as métricas de eficácia, é possível observar na tabela a seguir:
 \bibitem{b12} Gupta, B., \& Tiwari, M. (2016). Minimum mean brightness error contrast enhancement of color images using adaptive gamma correction with color preserving framework. Optik, 127(4), 1671-1676.
 \bibitem{b13} R. C. Gonzalez and R. E. Woods, Digital Image Processing, Third Edition,
 2008.
+\bibitem{b14} Abd Al-salam Selami, Ameen & Fadhil, Ahmed. (2016). A Study of the Effects of Gaussian Noise on Image Features. Kirkuk University Journal / Scientific Studies (1992-0849). 11. 152 - 169. 10.32894/kujss.2016.124648.
 \end{thebibliography}
 \vspace{12pt}
 \end{document}
