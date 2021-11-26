@@ -24,64 +24,67 @@ Sorocaba, São Paulo \\
 vinicius.cardoso7252@gmail.com}
 \and
 \IEEEauthorblockN{2\textsuperscript{nd} Gal Bronstein}
-\IEEEauthorblockA{\textit{Estudante de Enganharia de Computação} \\
+\IEEEauthorblockA{\textit{Estudante de Engenharia de Computação} \\
 \textit{FACENS}\\
 Sorocaba, São Paulo \\
 gal.alaiti@gmail.com}
 \and
 \IEEEauthorblockN{3\textsuperscript{rd} Henrique Rodrigues Silva}
-\IEEEauthorblockA{\textit{Estudante de Enganharia de Computação} \\
+\IEEEauthorblockA{\textit{Estudante de Engenharia de Computação} \\
 \textit{FACENS}\\
 Sorocaba, São Paulo \\
 henrique.rodrigues7@hotmail.com}
 \and
 \IEEEauthorblockN{4\textsuperscript{th} Lucas Capucho de Araujo}
-\IEEEauthorblockA{\textit{Estudante de Enganharia de Computação} \\
+\IEEEauthorblockA{\textit{Estudante de Engenharia de Computação} \\
 \textit{FACENS}\\
 Sorocaba, São Paulo \\
 lucascapucho@hotmail.com}
 \and
 \IEEEauthorblockN{5\textsuperscript{th} Samuel Rodrigues}
-\IEEEauthorblockA{\textit{Estudante de Enganharia de Computação} \\
+\IEEEauthorblockA{\textit{Estudante de Engenharia de Computação} \\
 \textit{FACENS}\\
 Sorocaba, São Paulo \\
 rodrigues.sam97@gmail.com}
 }
-
 \maketitle
 
 \begin{abstract}
-O objetivo é apresentar a análise entre dois métodos de processamento de imagens para aumentar o contraste: Filtro de Wiener e Equalização de Histograma.
+O objetivo é apresentar a análise entre dois métodos de processamento de imagens para aumentar o contraste através do Filtro de Wiener e Equalização de Histograma.
 Após o processamento, o Erro de Brilho Médio Absoluto (AMBE), definido como a diferença absoluta entre a imagem de entrada e saída, é usado para performar uma análise a cerca da eficácia de cada método.
 \end{abstract}
 
 \begin{IEEEkeywords}
-signal processing, wiener filter, histogram equalization, image, improvement, mri
+signal processing, wiener filter, histogram equalization, image, improvement, mri, gaussian noise
 \end{IEEEkeywords}
 
-\section{Introduction}
+\section{Introdução}
 
-Hoje em dia, técnicas de processamento de imagem são amplamente utilizadas na área médica, principalmente ao se realizar uma Resonância Magnética \cite{b1}. 
+A ressonância magnética é a propriedade física exibida por núcleos de determinados elementos que, quando submetidos a um campo magnético forte e excitados por ondas de rádio em determinada frequência (Frequência de Larmor), emitem rádio sinal, o qual pode ser captado por uma antena e transformado em imagem \cite{b1}. 
 
-Com o intuito de aumentar o contraste, é possível reduzir o ruído das imagens que poderiam ser tiradas, por exemplo, durante o procedimento médico, ajudando a diferenciação entre tecidos ou estruturas de composição diferentes no corpo\cite{b2}.
+A imagem por ressonância magnética (IRM) é o método de diagnóstico por imagem não-invasivo mais sensível para avaliar partes moles, particularmente o encéfalo, porém trata-se de uma técnica onerosa. Ela apresenta grande potencial diagnóstico, poucos efeitos deletérios e muitos benefícios a serem obtidos com o seu uso. \cite{b2}.
 
-Um dos modos de se aumentar o contraste de uma imagem se dá na utilização do filtro de Wiener \cite{b3}, que realiza uma suavização de imagens em que reduz os ruídos da image.
+Além disso, a IRM fornece informações anatômicas acuradas, imagens em qualquer plano do corpo, bom contraste e resolução espacial e por si só pode sugerir um diagnóstico\cite{b1}. 
 
-Além disso, também é possível utilizar a Equalização de Histograma (HE), que é um método popular para o aprimoramento de contraste de imagem \cite{b6} \cite{b7} \cite{b8}.
+Com o intuito de aumentar o contraste, é possível reduzir o ruído das imagens que poderiam ser tiradas, por exemplo, durante o procedimento médico, ajudando a diferenciação entre tecidos ou estruturas de composição diferentes no corpo\cite{b3}.
 
-O histograma, quando performado em uma imagem em tons de cinza, é a representação da frequência de todos os tons de cinza dessa imagem \cite{b9}.
+Um dos modos de se aumentar o contraste de uma imagem se dá na utilização do filtro de Wiener \cite{b4}, que realiza uma suavização de imagens em que reduz os ruídos da image.
 
-Por fim, para a análise de eficácia será utilizado o Erro de Brilho Médio Absoluto (AMBE), que é popular para esse tipo de análise \cite{b11}.
+Além disso, também é possível utilizar a Equalização de Histograma (HE), que é um método popular para o aprimoramento de contraste de imagem \cite{b7} \cite{b8} \cite{b9}.
+
+O histograma, quando performado em uma imagem em tons de cinza, é a representação da frequência de todos os tons de cinza dessa imagem \cite{b10}.
+
+Por fim, para a análise de eficácia será utilizado o Erro de Brilho Médio Absoluto (AMBE), que é popular para esse tipo de análise \cite{b12}.
 
 \section{Fundamentação}
 
-Para performar o filtro de Wiener, será utilizado a implementação em Python usando a biblioteca SciPy \cite{b4}, que foi implementada seguindo a formula abaixo \cite{b5}:
+Para performar o filtro de Wiener, será utilizado a implementação em Python usando a biblioteca SciPy \cite{b5}, que foi implementada seguindo a formula abaixo \cite{b6} :
 
 \begin{equation}
 y=\left\{ \begin{array}{cc} \frac{\sigma^{2}}{\sigma_{x}^{2}}m_{x}+\left(1-\frac{\sigma^{2}}{\sigma_{x}^{2}}\right)x & \sigma_{x}^{2}\geq\sigma^{2},\\ m_{x} & \sigma_{x}^{2}<\sigma^{2},\end{array}\right.
 \end{equation}
 
-Para performar a Equalização de Histograma, será utilizada uma biblioteca em Python chamada Scikit-Image \cite{b10}. A Equalização do Histograma, que em uma imagem digital com os níveis de intensidade na faixa [0, L-1], é uma função discreta \cite{b8}.
+Para performar a Equalização de Histograma, será utilizada uma biblioteca em Python chamada Scikit-Image \cite{b11}. A Equalização do Histograma, que em uma imagem digital com os níveis de intensidade na faixa [0, L-1], é uma função discreta \cite{b9}.
 
 \begin{equation}
 h(r_{x}) = n_{k}
@@ -95,13 +98,13 @@ A partir da formula acima, é possível obter as seguintes definições:
 \item h(rk) é o histograma da imagem digital.
 \end{itemize}
 
-Além da definição da função discreta, há também uma formula generalizada para a Equalização de Histograma \cite{b13}, que foi escolhida para ser utilizada no desenvolvimento. 
+Além da definição da função discreta, há também uma formula generalizada para a Equalização de Histograma \cite{b14}, que foi escolhida para ser utilizada no desenvolvimento. 
 
 \begin{equation}
 h(v)=\mathrm {round} \left({\frac {cdf(v)-cdf_{min}}{(M\times N)-cdf_{min}}}\times (L-1)\right)
 \end{equation}
 
-No qual L é o nível de intensidade de tons de cinza e M x N é o número de pixels na largura e altura, respectivamente. Além disso, a função cdf pode ser descrita como \cite{b13}:
+No qual L é o nível de intensidade de tons de cinza e M x N é o número de pixels na largura e altura, respectivamente. Além disso, a função cdf pode ser descrita como \cite{b14}:
 
 \begin{equation}
 cdf_{x}(i)=\sum _{j=0}^{i}p_{x}(x=j)
@@ -109,13 +112,13 @@ cdf_{x}(i)=\sum _{j=0}^{i}p_{x}(x=j)
 
 Para a análise, temos o AMBE que pode ser definido como a diferença absoluta entre uma entrada e uma saída, e baixos valores implicam em uma preservação maior do brilho. 
 
-A sua formula é descrita como \cite{b12}:
+A sua formula é descrita como \cite{b13}:
 
 \begin{equation}
 AMBE = |E(X) - E(Y)|     
 \end{equation}
 
-E por fim, para ter um cenário onde é possível reproduzir com uma maior precisão, será aplicado um ruído gaussiano, que se trata de um modelo de ruído que geralmente distorce os tons de cinza em uma imagem digital \cite{b14}.
+E por fim, para ter um cenário onde é possível reproduzir com uma maior precisão, será aplicado um ruído gaussiano, que se trata de um modelo de ruído que geralmente distorce os tons de cinza em uma imagem digital \cite{b15}.
 
 O ruído gaussiano pode ser dado por:
 
@@ -132,7 +135,7 @@ Onde:
 \item \({\sigma^2}\)  representa a variância.
 \end{itemize}
 
-Contudo, para esse experimento, foi utilizado a implementação do SciPy \cite{b4}, no qual implementa o ruído gaussiano da seguinte forma \cite{b14}:
+Contudo, para esse experimento, foi utilizado a implementação do SciPy \cite{b4}, no qual implementa o ruído gaussiano da seguinte forma \cite{b15}:
 
 \begin{equation}
 w(n) = e^{ -\frac{1}{2}\left(\frac{n}{\sigma}\right)^2 }
@@ -187,21 +190,22 @@ E quanto as métricas de eficácia, é possível observar na tabela a seguir:
 \section{Resultados}
 
 \begin{thebibliography}{00}
-\bibitem{b1} Hanafy M. Ali (March 14th 2018). MRI Medical Image Denoising by Fundamental Filters, High-Resolution Neuroimaging - Basic Physical Principles and Clinical Applications, Ahmet Mesrur Halefoğlu, IntechOpen, DOI: 10.5772/intechopen.72427. Disponível em: https://www.intechopen.com/chapters/58070
-\bibitem{b2} Ecomax, Diagnósticos por imagem - Tire suas dúvidas sobre o uso de constrate em exames de imagem. Disponível em: \url{https://ecomax-cdi.com.br/blog/tire-suas-duvidas-sobre-o-uso-de-contraste-em-exames-de-imagem/}
-\bibitem{b3} Martin-Fernandez, M., Alberola-Lopez, C., Ruiz-Alzola, J., \& Westin, C. F. (2007). Sequential anisotropic Wiener filtering applied to 3D MRI data. Magnetic resonance imaging, 25(2), 278-292.
-\bibitem{b4} Virtanen, P., Gommers, R., Oliphant, T.E. et al. SciPy 1.0: fundamental algorithms for scientific computing in Python. Nat Methods 17, 261–272 (2020). \url{https://doi.org/10.1038/s41592-019-0686-2}
-\bibitem{b5} Lim, Jae S., Two-Dimensional Signal and Image Processing, Englewood Cliffs, NJ, Prentice Hall, 1990, p. 548.
-\bibitem{b6} Scott E Umbaugh, Computer Vision and Image Processing, Prentice Hall: New Jersey 1998, pp. 209.
-\bibitem{b7} Patel, O., Maravi, Y. P., \& Sharma, S. (2013). A comparative study of histogram equalization based image enhancement techniques for brightness preservation and contrast enhancement. arXiv preprint arXiv:1311.4033.
-\bibitem{b8} Komal, Vij \& Yaduvir, Singh. (2011). Enhancement of Images using Histogram Processing Techniques. International Journal of Computer Technology and Applications. 02.
-\bibitem{b9} Gonzalez RC and Woods RE, “Digital Image Processing” Pearson Education Pvt. Ltd, Third Edition pp. 142-143, Delhi, (2003). Acessado em: 23/11/2021. Disponível em: \url{http://sdeuoc.ac.in/sites/default/files/sde_videos/Digital%20Image%20Processing%203rd%20ed.%20-%20R.%20Gonzalez%2C%20R.%20Woods-ilovepdf-compressed.pdf}
-\bibitem{b10} Stéfan van der Walt, Johannes L. Schönberger, Juan Nunez-Iglesias, François Boulogne, Joshua D. Warner, Neil Yager, Emmanuelle Gouillart, Tony Yu, and the scikit-image contributors. scikit-image: Image processing in Python. PeerJ 2:e453 (2014) \url{https://doi.org/10.7717/peerj.453}
-\bibitem{b11} Chen, S. D. (2012). A new image quality measure for assessment of histogram equalization-based contrast enhancement techniques. Digital Signal Processing, 22(4), 640-647.
-\bibitem{b12} Gupta, B., \& Tiwari, M. (2016). Minimum mean brightness error contrast enhancement of color images using adaptive gamma correction with color preserving framework. Optik, 127(4), 1671-1676.
-\bibitem{b13} R. C. Gonzalez and R. E. Woods, Digital Image Processing, Third Edition,
+\bibitem{b1} Maria-Cristina F. N. S. H., Masao-Iwasaki. Magnetic resonance imaging: basics - Imagem por ressonância magnética: princípios básicos, Ahmet Mesrur Halefoğlu, IntechOpen, DOI: 10.1590/S0103-84782009005000041. Disponível em: https://www.scielo.br/j/cr/a/mmPL6rMp5vmPCRpmYH84Kbm/abstract/?lang=pt#
+\bibitem{b2} Hanafy M. Ali (March 14th 2018). MRI Medical Image Denoising by Fundamental Filters, High-Resolution Neuroimaging - Basic Physical Principles and Clinical Applications, Ahmet Mesrur Halefoğlu, IntechOpen, DOI: 10.5772/intechopen.72427. Disponível em: https://www.intechopen.com/chapters/58070
+\bibitem{b3} Ecomax, Diagnósticos por imagem - Tire suas dúvidas sobre o uso de constrate em exames de imagem. Disponível em: \url{https://ecomax-cdi.com.br/blog/tire-suas-duvidas-sobre-o-uso-de-contraste-em-exames-de-imagem/}
+\bibitem{b4} Martin-Fernandez, M., Alberola-Lopez, C., Ruiz-Alzola, J., \& Westin, C. F. (2007). Sequential anisotropic Wiener filtering applied to 3D MRI data. Magnetic resonance imaging, 25(2), 278-292.
+\bibitem{b5} Virtanen, P., Gommers, R., Oliphant, T.E. et al. SciPy 1.0: fundamental algorithms for scientific computing in Python. Nat Methods 17, 261–272 (2020). \url{https://doi.org/10.1038/s41592-019-0686-2}
+\bibitem{b6} Lim, Jae S., Two-Dimensional Signal and Image Processing, Englewood Cliffs, NJ, Prentice Hall, 1990, p. 548.
+\bibitem{b7} Scott E Umbaugh, Computer Vision and Image Processing, Prentice Hall: New Jersey 1998, pp. 209.
+\bibitem{b8} Patel, O., Maravi, Y. P., \& Sharma, S. (2013). A comparative study of histogram equalization based image enhancement techniques for brightness preservation and contrast enhancement. arXiv preprint arXiv:1311.4033.
+\bibitem{b9} Komal, Vij \& Yaduvir, Singh. (2011). Enhancement of Images using Histogram Processing Techniques. International Journal of Computer Technology and Applications. 02.
+\bibitem{b10} Gonzalez RC and Woods RE, “Digital Image Processing” Pearson Education Pvt. Ltd, Third Edition pp. 142-143, Delhi, (2003). Acessado em: 23/11/2021. Disponível em: \url{http://sdeuoc.ac.in/sites/default/files/sde_videos/Digital%20Image%20Processing%203rd%20ed.%20-%20R.%20Gonzalez%2C%20R.%20Woods-ilovepdf-compressed.pdf}
+\bibitem{b11} Stéfan van der Walt, Johannes L. Schönberger, Juan Nunez-Iglesias, François Boulogne, Joshua D. Warner, Neil Yager, Emmanuelle Gouillart, Tony Yu, and the scikit-image contributors. scikit-image: Image processing in Python. PeerJ 2:e453 (2014) \url{https://doi.org/10.7717/peerj.453}
+\bibitem{b12} Chen, S. D. (2012). A new image quality measure for assessment of histogram equalization-based contrast enhancement techniques. Digital Signal Processing, 22(4), 640-647.
+\bibitem{b13} Gupta, B., \& Tiwari, M. (2016). Minimum mean brightness error contrast enhancement of color images using adaptive gamma correction with color preserving framework. Optik, 127(4), 1671-1676.
+\bibitem{b14} R. C. Gonzalez and R. E. Woods, Digital Image Processing, Third Edition,
 2008.
-\bibitem{b14} Abd Al-salam Selami, Ameen & Fadhil, Ahmed. (2016). A Study of the Effects of Gaussian Noise on Image Features. Kirkuk University Journal / Scientific Studies (1992-0849). 11. 152 - 169. 10.32894/kujss.2016.124648.
+\bibitem{b15} Abd Al-salam Selami, Ameen & Fadhil, Ahmed. (2016). A Study of the Effects of Gaussian Noise on Image Features. Kirkuk University Journal / Scientific Studies (1992-0849). 11. 152 - 169. 10.32894/kujss.2016.124648.
 \end{thebibliography}
 \vspace{12pt}
 \end{document}
