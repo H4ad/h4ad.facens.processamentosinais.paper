@@ -18,7 +18,7 @@
 \title{Aprimoramento de Imagem}
 
 \author{\IEEEauthorblockN{1\textsuperscript{st} Vinícius Lourenço Claro Cardoso}
-\IEEEauthorblockA{\textit{Estudante de Enganharia de Computação} \\
+\IEEEauthorblockA{\textit{Estudante de Engenharia de Computação} \\
 \textit{FACENS}\\
 Sorocaba, São Paulo \\
 vinicius.cardoso7252@gmail.com}
@@ -51,7 +51,7 @@ rodrigues.sam97@gmail.com}
 
 \begin{abstract}
 O objetivo é apresentar a análise entre dois métodos de processamento de imagens para aumentar o contraste através do Filtro de Wiener e Equalização de Histograma.
-Após o processamento, o Erro de Brilho Médio Absoluto (AMBE), definido como a diferença absoluta entre a imagem de entrada e saída, é usado para performar uma análise a cerca da eficácia de cada método.
+Após o processamento, o Erro de Brilho Médio Absoluto (AMBE), definido como a diferença absoluta entre a imagem de entrada e saída, é usado para realizar  uma análise acerca da eficácia de cada método.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -66,9 +66,9 @@ A imagem por ressonância magnética (IRM) é o método de diagnóstico por imag
 
 Além disso, a IRM fornece informações anatômicas acuradas, imagens em qualquer plano do corpo, bom contraste e resolução espacial e por si só pode sugerir um diagnóstico\cite{b1}. 
 
-Com o intuito de aumentar o contraste, é possível reduzir o ruído das imagens que poderiam ser tiradas, por exemplo, durante o procedimento médico, ajudando a diferenciação entre tecidos ou estruturas de composição diferentes no corpo\cite{b3}.
+Com o intuito de aumentar o contraste, é possível reduzir o ruído das imagens advindas de um procedimento médico, que auxilia a diferenciação entre tecidos ou estruturas de composição diferentes no corpo\cite{b3}.
 
-Um dos modos de se aumentar o contraste de uma imagem se dá na utilização do filtro de Wiener \cite{b4}, que realiza uma suavização de imagens em que reduz os ruídos da image.
+Um dos modos de se aumentar o contraste de uma imagem se dá na utilização do filtro de Wiener \cite{b4}, que realiza uma suavização de imagens em que reduz os ruídos da imagem.
 
 Além disso, também é possível utilizar a Equalização de Histograma (HE), que é um método popular para o aprimoramento de contraste de imagem \cite{b7} \cite{b8} \cite{b9}.
 
@@ -78,27 +78,29 @@ Por fim, para a análise de eficácia será utilizado o Erro de Brilho Médio Ab
 
 \section{Fundamentação}
 
-Para performar o filtro de Wiener, será utilizado a implementação em Python usando a biblioteca SciPy \cite{b5}, que foi implementada seguindo a formula abaixo \cite{b6} :
+Para performar o filtro de Wiener, será utilizado a implementação em Python usando a biblioteca SciPy \cite{b5}, que foi implementada seguindo a fórmula abaixo \cite{b6} :
 
 \begin{equation}
 y=\left\{ \begin{array}{cc} \frac{\sigma^{2}}{\sigma_{x}^{2}}m_{x}+\left(1-\frac{\sigma^{2}}{\sigma_{x}^{2}}\right)x & \sigma_{x}^{2}\geq\sigma^{2},\\ m_{x} & \sigma_{x}^{2}<\sigma^{2},\end{array}\right.
 \end{equation}
 
-Para performar a Equalização de Histograma, será utilizada uma biblioteca em Python chamada Scikit-Image \cite{b11}. A Equalização do Histograma, que em uma imagem digital com os níveis de intensidade na faixa [0, L-1], é uma função discreta \cite{b9}.
+Para performar a Equalização de Histograma, será utilizada uma biblioteca em Python chamada Scikit-Image \cite{b11}. 
+
+A Equalização do Histograma, que em uma imagem digital com os níveis de intensidade na faixa [0, L-1], é uma função discreta \cite{b9}.
 
 \begin{equation}
 h(r_{x}) = n_{k}
 \end{equation}
 
-A partir da formula acima, é possível obter as seguintes definições:
+A partir da fórmula acima, é possível obter as seguintes definições:
 
 \begin{itemize}
 \item rk é o valor de intensidade.
-\item nk é o numero de pixels com intensidade rk.
+\item nk é o número de pixels com intensidade rk.
 \item h(rk) é o histograma da imagem digital.
 \end{itemize}
 
-Além da definição da função discreta, há também uma formula generalizada para a Equalização de Histograma \cite{b14}, que foi escolhida para ser utilizada no desenvolvimento. 
+Além da definição da função discreta, há também uma fórmula generalizada para a Equalização de Histograma \cite{b14}, que foi escolhida para ser utilizada no desenvolvimento. 
 
 \begin{equation}
 h(v)=\mathrm {round} \left({\frac {cdf(v)-cdf_{min}}{(M\times N)-cdf_{min}}}\times (L-1)\right)
@@ -112,13 +114,13 @@ cdf_{x}(i)=\sum _{j=0}^{i}p_{x}(x=j)
 
 Para a análise, temos o AMBE que pode ser definido como a diferença absoluta entre uma entrada e uma saída, e baixos valores implicam em uma preservação maior do brilho. 
 
-A sua formula é descrita como \cite{b13}:
+A sua fórmula é descrita como \cite{b13}:
 
 \begin{equation}
 AMBE = |E(X) - E(Y)|     
 \end{equation}
 
-E por fim, para ter um cenário onde é possível reproduzir com uma maior precisão, será aplicado um ruído gaussiano, que se trata de um modelo de ruído que geralmente distorce os tons de cinza em uma imagem digital \cite{b15}.
+E por fim, para ter um ambiente onde é possível reproduzir com uma maior precisão para futuras revisões, será aplicado um ruído gaussiano, que se trata de um modelo de ruído que geralmente distorce os tons de cinza em uma imagem digital \cite{b15}.
 
 O ruído gaussiano pode ser dado por:
 
@@ -152,7 +154,7 @@ Onde:
 
 Foi utilizado um banco de imagens MRI qualquer para obter uma imagem de cérebro para ser aprimorada, ela é representada na Figura 1 como "Imagem Original".
 
-E com a imagem original, foi criado a imagem com ruido que utiliza do ruído gaussiano com um sigma no valor de 100. 
+E com a imagem original, foi criado a imagem com ruído que utiliza do ruído gaussiano com um sigma no valor de 100. 
 
 Todo o código utilizado no experimento pode ser encontrado e revisado dentro do Github de forma pública \cite{b16}.
 
@@ -172,7 +174,7 @@ E abaixo, o resultado após performar ambos os métodos de aprimoramento.
     \label{fig:label2}
 \end{figure}
 
-E quanto as métricas de eficácia, é possível observar na tabela a seguir:
+E quanto às métricas de eficácia, é possível observar na tabela a seguir:
 
 \begin{table}[H]
 \renewcommand{\arraystretch}{1.3}
@@ -193,9 +195,9 @@ E quanto as métricas de eficácia, é possível observar na tabela a seguir:
 
 Como pode ser visto na tabela \ref{table1}, ao performar o Erro de Brilho Médio Absoluto (AMBE) em ambas as imagens geradas na figura \ref{fig:label2}, foi obtido os valores de 15,94 e 79,91 para os métodos de Filtro de Wiener  e Equalização do Histograma, respectivamente.
 
-Usando o Filtro de Wiener como base, foi obtido uma melhora de 501,31\(\%\) em relação ao método de Equalizaçãode Histograma. 
+Usando o Filtro de Wiener como base, foi obtido uma melhora de 501,31\(\%\) em relação ao método de Equalização de Histograma. 
 
-Essa melhora pode ser observada na figura \ref{fig:label2}, em que a imagem processada pelo Filtro de Wiener que visivelmente possui menos ruído.
+Essa melhora pode ser observada na figura \ref{fig:label2}, em que a imagem processada pelo Filtro de Wiener visivelmente possui menos ruído.
 
 \begin{thebibliography}{00}
 \bibitem{b1} Maria-Cristina F. N. S. H., Masao-Iwasaki. Magnetic resonance imaging: basics - Imagem por ressonância magnética: princípios básicos, Ahmet Mesrur Halefoğlu, IntechOpen, DOI: 10.1590/S0103-84782009005000041. Disponível em: \url{https://www.scielo.br/j/cr/a/mmPL6rMp5vmPCRpmYH84Kbm/abstract/?lang=pt#}
