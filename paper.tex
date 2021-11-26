@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{float}
 \usepackage[hyphens]{url}
 \usepackage[hidelinks]{hyperref}
 \hypersetup{breaklinks=true}
@@ -50,8 +51,8 @@ rodrigues.sam97@gmail.com}
 \maketitle
 
 \begin{abstract}
-O objetivo é apresentar a análise entre dois métodos de processamento de imagens para aumentar o contraste: Wiener Filter e Histogram Equalization.
-Após o processamento, o Erro de Brilho Médio Absoluto (AMBE), definido como a diferença absoluta entre a imagem de entrada e saída, é usado para performar uma análise a cerca da eficiência de cada método.
+O objetivo é apresentar a análise entre dois métodos de processamento de imagens para aumentar o contraste: Filtro de Wiener e Equalização de Histograma.
+Após o processamento, o Erro de Brilho Médio Absoluto (AMBE), definido como a diferença absoluta entre a imagem de entrada e saída, é usado para performar uma análise a cerca da eficácia de cada método.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -60,29 +61,96 @@ signal processing, wiener filter, histogram equalization, image, improvement, mr
 
 \section{Introduction}
 
-Hoje em dia, técnicas de processamento de imagem são amplamente utilizadas na área médica, principalmente ao se realizar uma Resonância Magnética \cite{b1}, com o intuito de aumentar o contraste das imagens tiradas durante o procedimento médico, ajudando a diferenciação entre tecidos ou estruturas de composição diferentes no corpo\cite{b2}, melhorando o resultado e garantindo diagnósticos mais precisos.
+Hoje em dia, técnicas de processamento de imagem são amplamente utilizadas na área médica, principalmente ao se realizar uma Resonância Magnética \cite{b1}. 
 
-Um dos modos de se aumentar o contraste de uma imagem se dá na utilização do filtro de Wiener \cite{b3}, que realiza um deblurring de imagens com ruídos.
+Com o intuito de aumentar o contraste, é possível reduzir o ruído das imagens que poderiam ser tiradas, por exemplo, durante o procedimento médico, ajudando a diferenciação entre tecidos ou estruturas de composição diferentes no corpo\cite{b2}.
 
-Para performar o filtro, foi utilizado a implementação em Python usando a biblioteca SciPy \cite{b4}, que executa a seguinte formula \cite{b5} :
+Um dos modos de se aumentar o contraste de uma imagem se dá na utilização do filtro de Wiener \cite{b3}, que realiza uma suavização de imagens em que reduz os ruídos da image.
+
+Além disso, também é possível utilizar a Equalização de Histograma (HE), que é um método popular para o aprimoramento de contraste de imagem \cite{b6} \cite{b7} \cite{b8}.
+
+O histograma, quando performado em uma imagem em tons de cinza, é a representação da frequência de todos os tons de cinza dessa imagem \cite{b9}.
+
+Por fim, para a análise de eficácia será utilizado o Erro de Brilho Médio Absoluto (AMBE), que é popular para esse tipo de análise \cite{b11}.
+
+\section{Fundamentação}
+
+Para performar o filtro de Wiener, será utilizado a implementação em Python usando a biblioteca SciPy \cite{b4}, que foi implementada seguindo a formula abaixo \cite{b5} :
 
 \begin{equation}
 y=\left\{ \begin{array}{cc} \frac{\sigma^{2}}{\sigma_{x}^{2}}m_{x}+\left(1-\frac{\sigma^{2}}{\sigma_{x}^{2}}\right)x & \sigma_{x}^{2}\geq\sigma^{2},\\ m_{x} & \sigma_{x}^{2}<\sigma^{2},\end{array}\right.
 \end{equation}
 
-Além disso, também é possível utilizar a Equalização de Histograma (HE) que é um método popular para o aprimoramento de contraste de imagem \cite{b6} \cite{b7} \cite{b8}.
-
-O histograma, quando performado em uma imagem em tons de cinza, é a representação da frequência de todos os tons de cinza dessa imagem \cite{b9}.
-
-Sendo assim, a equalização de histograma será performada usando uma biblioteca em Python chamada Scikit-Image \cite{1-}.
-
-E por fim, para a análise, o Erro de Brilho Médio Absoluto (AMBE) que é popular para esse tipo de análise \cite{11}, será utilizado para medir a eficácia de ambos os métodos.
-
-O AMBE é definido como a diferença absoluta entre uma entrada e uma saída, e baixos valores implicam em uma preservação maior do brilho. A sua formula é descrita como \cite{12}:
+Para performar a Equalização de Histograma, será utilizada uma biblioteca em Python chamada Scikit-Image \cite{b10}. A Equalização do Histograma, que em uma imagem digital com os níveis de intensidade na faixa [0, L-1], é uma função discreta \cite{b8}.
 
 \begin{equation}
-AMBE=|E(X) – E(Y)|     
+h(r_{x}) = n_{k}
 \end{equation}
+
+A partir da formula acima, é possível obter as seguintes definições:
+
+\begin{itemize}
+\item rk é o valor de intensidade.
+\item nk é o numero de pixels com intensidade rk.
+\item h(rk) é o histograma da imagem digital.
+\end{itemize}
+
+Além da definição da função discreta, há também uma formula generalizada para a Equalização de Histograma \cite{b13}, que foi escolhida para ser utilizada no desenvolvimento. 
+
+\begin{equation}
+h(v)=\mathrm {round} \left({\frac {cdf(v)-cdf_{min}}{(M\times N)-cdf_{min}}}\times (L-1)\right)
+\end{equation}
+
+No qual L é o nível de intensidade de tons de cinza e M x N é o número de pixels na largura e altura, respectivamente. Além disso, a função cdf pode ser descrita como \cite{b13}:
+
+\begin{equation}
+cdf_{x}(i)=\sum _{j=0}^{i}p_{x}(x=j)
+\end{equation}
+
+Por fim, para a análise, temos o AMBE que pode ser definido como a diferença absoluta entre uma entrada e uma saída, e baixos valores implicam em uma preservação maior do brilho. 
+
+A sua formula é descrita como \cite{b12}:
+
+\begin{equation}
+AMBE = |E(X) - E(Y)|     
+\end{equation}
+
+\section{Desenvolvimento}
+
+Foi utilizado um banco de imagens MRI qualquer para obter uma imagem de cérebro para ser aprimorada.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{resultpt1.png}
+    \caption{Representa a imagem original e a mesma imagem com ruído gaussiano.}
+    \label{fig:label1}
+\end{figure}
+
+E abaixo, o resultado após performar ambos os métodos de aprimoramento.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{resultpt2.png}
+    \caption{Representa o resultado dos métodos de melhoria de contraste.}
+    \label{fig:label2}
+\end{figure}
+
+E quanto as métricas de eficácia, é possível observar na tabela a seguir:
+
+\begin{table}[H]
+\renewcommand{\arraystretch}{1.3}
+\caption{Valor de AMBE}
+\label{table_example}
+\centering
+\begin{tabular}{c||c}
+\hline
+\bfseries Filtro de Wiener &
+\bfseries Equalização do Histograma \\
+\hline\hline
+15.94 & 79.91 \\
+\hline
+\end{tabular}
+\end{table}
 
 \begin{thebibliography}{00}
 \bibitem{b1} Hanafy M. Ali (March 14th 2018). MRI Medical Image Denoising by Fundamental Filters, High-Resolution Neuroimaging - Basic Physical Principles and Clinical Applications, Ahmet Mesrur Halefoğlu, IntechOpen, DOI: 10.5772/intechopen.72427. Disponível em: https://www.intechopen.com/chapters/58070
@@ -93,11 +161,12 @@ AMBE=|E(X) – E(Y)|
 \bibitem{b6} Scott E Umbaugh, Computer Vision and Image Processing, Prentice Hall: New Jersey 1998, pp. 209.
 \bibitem{b7} Patel, O., Maravi, Y. P., \& Sharma, S. (2013). A comparative study of histogram equalization based image enhancement techniques for brightness preservation and contrast enhancement. arXiv preprint arXiv:1311.4033.
 \bibitem{b8} Komal, Vij \& Yaduvir, Singh. (2011). Enhancement of Images using Histogram Processing Techniques. International Journal of Computer Technology and Applications. 02.
-\bibitem{b9} Gonzalez RC and Woods RE, “Digital Image Processing” Pearson Education Pvt. Ltd, Third
-Edition pp. 142-143, Delhi, (2003). Acessado em: 23/11/2021. Disponível em: \url{http://sdeuoc.ac.in/sites/default/files/sde_videos/Digital%20Image%20Processing%203rd%20ed.%20-%20R.%20Gonzalez%2C%20R.%20Woods-ilovepdf-compressed.pdf}
-\bibitem{10} Stéfan van der Walt, Johannes L. Schönberger, Juan Nunez-Iglesias, François Boulogne, Joshua D. Warner, Neil Yager, Emmanuelle Gouillart, Tony Yu, and the scikit-image contributors. scikit-image: Image processing in Python. PeerJ 2:e453 (2014) \url{https://doi.org/10.7717/peerj.453}
-\bibitem{11} Chen, S. D. (2012). A new image quality measure for assessment of histogram equalization-based contrast enhancement techniques. Digital Signal Processing, 22(4), 640-647.
-\bibitem{12} Gupta, B., \& Tiwari, M. (2016). Minimum mean brightness error contrast enhancement of color images using adaptive gamma correction with color preserving framework. Optik, 127(4), 1671-1676.
+\bibitem{b9} Gonzalez RC and Woods RE, “Digital Image Processing” Pearson Education Pvt. Ltd, Third Edition pp. 142-143, Delhi, (2003). Acessado em: 23/11/2021. Disponível em: \url{http://sdeuoc.ac.in/sites/default/files/sde_videos/Digital%20Image%20Processing%203rd%20ed.%20-%20R.%20Gonzalez%2C%20R.%20Woods-ilovepdf-compressed.pdf}
+\bibitem{b10} Stéfan van der Walt, Johannes L. Schönberger, Juan Nunez-Iglesias, François Boulogne, Joshua D. Warner, Neil Yager, Emmanuelle Gouillart, Tony Yu, and the scikit-image contributors. scikit-image: Image processing in Python. PeerJ 2:e453 (2014) \url{https://doi.org/10.7717/peerj.453}
+\bibitem{b11} Chen, S. D. (2012). A new image quality measure for assessment of histogram equalization-based contrast enhancement techniques. Digital Signal Processing, 22(4), 640-647.
+\bibitem{b12} Gupta, B., \& Tiwari, M. (2016). Minimum mean brightness error contrast enhancement of color images using adaptive gamma correction with color preserving framework. Optik, 127(4), 1671-1676.
+\bibitem{b13} R. C. Gonzalez and R. E. Woods, Digital Image Processing, Third Edition,
+2008.
 \end{thebibliography}
 \vspace{12pt}
 \end{document}
